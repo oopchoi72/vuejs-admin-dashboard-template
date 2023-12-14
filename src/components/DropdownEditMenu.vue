@@ -1,9 +1,49 @@
+<script setup>
+import { ref, onMounted, onUnmounted, defineProps } from "vue";
+const props = defineProps(["align"]);
+
+const dropdownOpen = ref(false);
+const trigger = ref(null);
+const dropdown = ref(null);
+
+// close on click outside
+const clickHandler = ({ target }) => {
+  if (
+    !dropdownOpen.value ||
+    dropdown.value.contains(target) ||
+    trigger.value.contains(target)
+  )
+    return;
+  dropdownOpen.value = false;
+};
+
+// close if the esc key is pressed
+const keyHandler = ({ keyCode }) => {
+  if (!dropdownOpen.value || keyCode !== 27) return;
+  dropdownOpen.value = false;
+};
+
+onMounted(() => {
+  document.addEventListener("click", clickHandler);
+  document.addEventListener("keydown", keyHandler);
+});
+
+onUnmounted(() => {
+  document.removeEventListener("click", clickHandler);
+  document.removeEventListener("keydown", keyHandler);
+});
+</script>
+
 <template>
   <div>
     <button
       ref="trigger"
       class="rounded-full"
-      :class="dropdownOpen ? 'bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400' : 'text-slate-400 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400'"      
+      :class="
+        dropdownOpen
+          ? 'bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400'
+          : 'text-slate-400 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400'
+      "
       aria-haspopup="true"
       @click.prevent="dropdownOpen = !dropdownOpen"
       :aria-expanded="dropdownOpen"
@@ -23,7 +63,11 @@
       leave-from-class="opacity-100"
       leave-to-class="opacity-0"
     >
-      <div v-show="dropdownOpen" class="origin-top-right z-10 absolute top-full min-w-36 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 py-1.5 rounded shadow-lg overflow-hidden mt-1" :class="align === 'right' ? 'right-0' : 'left-0'">
+      <div
+        v-show="dropdownOpen"
+        class="origin-top-right z-10 absolute top-full min-w-36 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 py-1.5 rounded shadow-lg overflow-hidden mt-1"
+        :class="align === 'right' ? 'right-0' : 'left-0'"
+      >
         <ul
           ref="dropdown"
           @focusin="dropdownOpen = true"
@@ -35,46 +79,3 @@
     </transition>
   </div>
 </template>
-
-<script>
-import { ref, onMounted, onUnmounted } from 'vue'
-
-export default {
-  name: 'DropdownEditMenu',
-  props: ['align'],
-  setup() {
-
-    const dropdownOpen = ref(false)
-    const trigger = ref(null)
-    const dropdown = ref(null)
-
-    // close on click outside
-    const clickHandler = ({ target }) => {
-      if (!dropdownOpen.value || dropdown.value.contains(target) || trigger.value.contains(target)) return
-      dropdownOpen.value = false
-    }
-
-    // close if the esc key is pressed
-    const keyHandler = ({ keyCode }) => {
-      if (!dropdownOpen.value || keyCode !== 27) return
-      dropdownOpen.value = false
-    }
-
-    onMounted(() => {
-      document.addEventListener('click', clickHandler)
-      document.addEventListener('keydown', keyHandler)
-    })
-
-    onUnmounted(() => {
-      document.removeEventListener('click', clickHandler)
-      document.removeEventListener('keydown', keyHandler)
-    })
-
-    return {
-      dropdownOpen,
-      trigger,
-      dropdown,
-    }
-  }
-}
-</script>

@@ -1,3 +1,10 @@
+<script setup>
+import { useDark } from "@vueuse/core";
+const isDark = useDark({
+  selector: 'html',
+})
+</script>
+
 <template>
   <div>
     <input type="checkbox" name="light-switch" id="light-switch" v-model="isDark" class="light-switch sr-only" />
@@ -14,10 +21,3 @@
     </label>
   </div>
 </template>
-
-<script setup>
-import { useDark } from "@vueuse/core";
-const isDark = useDark({
-  selector: 'html',
-})
-</script>
