@@ -1,8 +1,11 @@
 <script setup>
 import { ref, onMounted, onUnmounted, defineProps } from "vue";
 import UserAvatar from "../images/user-avatar-32.png";
+import { useAuth } from "../composable/auth";
 
 const props = defineProps(["align"]);
+
+const { logout } = useAuth();
 
 const dropdownOpen = ref(false);
 const trigger = ref(null);
@@ -105,7 +108,10 @@ onUnmounted(() => {
             <router-link
               class="font-medium text-sm text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center py-1 px-3"
               to="/signin"
-              @click="dropdownOpen = false"
+              @click="
+                dropdownOpen = false;
+                logout();
+              "
               >Sign Out</router-link
             >
           </li>

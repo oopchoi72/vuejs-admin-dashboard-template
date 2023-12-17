@@ -3,7 +3,7 @@ import { defineProps, ref } from "vue";
 import flatPickr from "vue-flatpickr-component";
 
 const props = defineProps(["align"]);
-const data = ref(null);
+const date = ref(null);
 const config = ref({
   mode: "range",
   static: true,

@@ -304,6 +304,101 @@ watch(sidebarExpanded, () => {
                 </ul>
               </div>
             </SidebarLinkGroup>
+            <!-- Common Management  -->
+            <SidebarLinkGroup
+              v-slot="parentLink"
+              :activeCondition="currentRoute.fullPath.includes('ecommerce')"
+            >
+              <a
+                class="block text-slate-200 truncate transition duration-150"
+                :class="
+                  currentRoute.fullPath.includes('ecommerce')
+                    ? 'hover:text-slate-200'
+                    : 'hover:text-white'
+                "
+                href="#0"
+                @click.prevent="
+                  sidebarExpanded
+                    ? parentLink.handleClick()
+                    : (sidebarExpanded = true)
+                "
+              >
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center">
+                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
+                      <path
+                        class="fill-current"
+                        :class="
+                          currentRoute.fullPath.includes('ecommerce')
+                            ? 'text-indigo-300'
+                            : 'text-slate-400'
+                        "
+                        d="M13 15l11-7L11.504.136a1 1 0 00-1.019.007L0 7l13 8z"
+                      />
+                      <path
+                        class="fill-current"
+                        :class="
+                          currentRoute.fullPath.includes('ecommerce')
+                            ? 'text-indigo-600'
+                            : 'text-slate-700'
+                        "
+                        d="M13 15L0 7v9c0 .355.189.685.496.864L13 24v-9z"
+                      />
+                      <path
+                        class="fill-current"
+                        :class="
+                          currentRoute.fullPath.includes('ecommerce')
+                            ? 'text-indigo-500'
+                            : 'text-slate-600'
+                        "
+                        d="M13 15.047V24l10.573-7.181A.999.999 0 0024 16V8l-11 7.047z"
+                      />
+                    </svg>
+                    <span
+                      class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200"
+                      >공통 관리
+                    </span>
+                  </div>
+                  <!-- Icon -->
+                  <div class="flex shrink-0 ml-2">
+                    <svg
+                      class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400"
+                      :class="parentLink.expanded && 'rotate-180'"
+                      viewBox="0 0 12 12"
+                    >
+                      <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
+                    </svg>
+                  </div>
+                </div>
+              </a>
+              <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
+                <ul class="pl-9 mt-1" :class="!parentLink.expanded && 'hidden'">
+                  <router-link
+                    to="/manage/codes"
+                    custom
+                    v-slot="{ href, navigate, isExactActive }"
+                  >
+                    <li class="mb-1 last:mb-0">
+                      <a
+                        class="block transition duration-150 truncate"
+                        :class="
+                          isExactActive
+                            ? 'text-indigo-500'
+                            : 'text-slate-400 hover:text-slate-200'
+                        "
+                        :href="href"
+                        @click="navigate"
+                      >
+                        <span
+                          class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200"
+                          >코드 관리</span
+                        >
+                      </a>
+                    </li>
+                  </router-link>
+                </ul>
+              </div>
+            </SidebarLinkGroup>
             <!-- E-Commerce  -->
             <SidebarLinkGroup
               v-slot="parentLink"

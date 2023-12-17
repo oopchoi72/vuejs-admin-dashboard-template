@@ -18,11 +18,9 @@ export function useAuth() {
   if (!userId && !user.value) {
     if (location.pathname !== "/signin") {
       console.log("current url:", location.pathname);
-      //   localStorage.setItem("returnUrl", location.pathname);
-      router.currentRoute.value.query.returnUrl = location.pathname;
+      localStorage.setItem("returnUrl", location.pathname);
     }
     router.push("/signin");
-    return;
   }
 
   const fetchUser = async (userId) => {
@@ -55,10 +53,10 @@ export function useAuth() {
     //     .catch(err => console.log('axios error..........', err));
     const uId = 1;
     await fetchUser(uId);
-    // const returnUrl = localStorage.getItem("returnUrl");
-    if (router.currentRoute.value.query.returnUrl) {
-      //   localStorage.removeItem("returnUrl");
-      router.push(router.currentRoute.value.query.returnUrl);
+    const returnUrl = localStorage.getItem("returnUrl");
+    if (returnUrl) {
+      localStorage.removeItem("returnUrl");
+      router.push(returnUrl);
     } else {
       router.push("/");
     }
@@ -68,7 +66,7 @@ export function useAuth() {
     localStorage.removeItem("id");
     localStorage.removeItem("email");
     localStorage.removeItem("name");
-    // localStorage.removeItem("returnUrl");
+    localStorage.removeItem("returnUrl");
     user.value = null;
   };
 
