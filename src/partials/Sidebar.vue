@@ -307,12 +307,12 @@ watch(sidebarExpanded, () => {
             <!-- Common Management  -->
             <SidebarLinkGroup
               v-slot="parentLink"
-              :activeCondition="currentRoute.fullPath.includes('ecommerce')"
+              :activeCondition="currentRoute.fullPath.includes('manage')"
             >
               <a
                 class="block text-slate-200 truncate transition duration-150"
                 :class="
-                  currentRoute.fullPath.includes('ecommerce')
+                  currentRoute.fullPath.includes('manage')
                     ? 'hover:text-slate-200'
                     : 'hover:text-white'
                 "
@@ -329,7 +329,7 @@ watch(sidebarExpanded, () => {
                       <path
                         class="fill-current"
                         :class="
-                          currentRoute.fullPath.includes('ecommerce')
+                          currentRoute.fullPath.includes('manage')
                             ? 'text-indigo-300'
                             : 'text-slate-400'
                         "
@@ -338,7 +338,7 @@ watch(sidebarExpanded, () => {
                       <path
                         class="fill-current"
                         :class="
-                          currentRoute.fullPath.includes('ecommerce')
+                          currentRoute.fullPath.includes('manage')
                             ? 'text-indigo-600'
                             : 'text-slate-700'
                         "
@@ -347,7 +347,7 @@ watch(sidebarExpanded, () => {
                       <path
                         class="fill-current"
                         :class="
-                          currentRoute.fullPath.includes('ecommerce')
+                          currentRoute.fullPath.includes('manage')
                             ? 'text-indigo-500'
                             : 'text-slate-600'
                         "

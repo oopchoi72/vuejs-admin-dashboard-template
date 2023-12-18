@@ -19,6 +19,8 @@ const nextPage = ref(0);
 const startPage = ref(0);
 const endPage = ref(0);
 
+const numbers = ref([]);
+
 watch(
   () => props.payload,
   (newVal, oldVal) => {
@@ -90,8 +92,8 @@ function setPagination() {
  * 그룹에 해당하는 페이지 번호 링크를 생성한다.
  */
 function generatePageNumbers(currentPage, startPage, endPage) {
-  const numbers = [];
   let bgColor = "";
+  numbers.value = [];
   for (let i = startPage; i <= endPage; i++) {
     if (i === currentPage) {
       console.log("generatePageNumbers::currentPage:", currentPage);
@@ -99,19 +101,7 @@ function generatePageNumbers(currentPage, startPage, endPage) {
     } else {
       bgColor = "bg-white";
     }
-
-    // numbers.push(
-    //   <li key={i}>
-    //     <a
-    //       href="#"
-    //       className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 ${bgColor}  border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
-    //       onClick={() => onChangePage(i)}
-    //     >
-    //       {i}
-    //     </a>
-    //   </li>
-    // );
-    numbers.push("1");
+    numbers.value.push(i);
   }
   pageNumbers.value = numbers;
 }
@@ -259,22 +249,14 @@ function generatePageNumbers(currentPage, startPage, endPage) {
               </a>
             </li>
             <span v-if="startPage > 1" className="text-slate-600">...</span>
-            <button
-              v-for="pageNumber in pageGroup"
-              :key="pageNumber"
-              @click="changePage(pageNumber)"
-              :class="{ active: pageNumber === currentPage }"
-            >
-              {{ pageNumber }}
-            </button>
 
-            <li key="{i}">
+            <li v-for="i in numbers" :key="i">
               <a
                 href="#"
                 class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 ${bgColor} border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                 @click.prevent="(event) => onChangePage(i)"
               >
-                {i}
+                {{ i }}
               </a>
             </li>
             <!-- {{

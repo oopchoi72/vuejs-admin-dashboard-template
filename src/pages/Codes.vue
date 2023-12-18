@@ -73,8 +73,9 @@ const fetchCode = async (id) => {
     });
 };
 
-const onChangePage = async (page) => {
-  page.value = page;
+const onChangePage = async (p) => {
+  page.value = p;
+  fetchCodes();
 };
 
 const onDetailView = async (id) => {
@@ -208,7 +209,7 @@ fetchCodes();
           :onClose="closeDeleteModal"
         ></CodeDeleteModal>
       </main>
-      <!-- <Banner /> -->
+      <Banner />
     </div>
   </div>
 </template>
