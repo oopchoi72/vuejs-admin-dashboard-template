@@ -3,9 +3,12 @@ import { ref } from "vue";
 import Sidebar from "../partials/Sidebar.vue";
 import Header from "../partials/Header.vue";
 import Banner from "../partials/Banner.vue";
-import CodesCard from "../partials/codes/CodesCard.vue";
 import { useApi } from "../apis";
 import { useAuth } from "../composable/auth";
+import CodesCard from "../partials/codes/CodesCard.vue";
+import CodeAddModal from "../partials/codes/CodeAddModal.vue";
+import CodeEditModal from "../partials/codes/CodeEditModal.vue";
+import CodeDeleteModal from "../partials/codes/CodeDeleteModal.vue";
 
 // 로그인 사용자 정보
 const { user } = useAuth();
@@ -75,7 +78,8 @@ const onChangePage = async (page) => {
 };
 
 const onDetailView = async (id) => {
-  data.value = fetchCode(id);
+  selectedItem.value = fetchCode(id);
+  openEditModal.value = true;
 };
 
 const onDeleteView = async (id) => {
@@ -164,7 +168,7 @@ fetchCodes();
                     parentKeyword = inputParentKeyword;
                     childKeyword = inputChildKeyword;
                     page = 1;
-                    openAddModal();
+                    openAddModal = true;
                   }
                 "
               >
@@ -189,6 +193,20 @@ fetchCodes();
             ></CodesCard>
           </div>
         </div>
+        <CodeAddModal
+          v-if="openAddModal"
+          :onClose="closeAddModal"
+        ></CodeAddModal>
+        <CodeEditModal
+          v-if="openEditModal"
+          :selectedItem="selectedItem"
+          :onClose="closeEditModal"
+        ></CodeEditModal>
+        <CodeDeleteModal
+          v-if="openDeleteModal"
+          :selectedId="selectedId"
+          :onClose="closeDeleteModal"
+        ></CodeDeleteModal>
       </main>
     </div>
   </div>

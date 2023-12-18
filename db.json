@@ -678,13 +678,6 @@
       "id": 61
     },
     {
-      "id": 62,
-      "parent_code": "MB0100",
-      "code": "MB0104",
-      "description": "새싹222",
-      "order_no": "4"
-    },
-    {
       "code": "MB0100",
       "description": "회원등급",
       "order_no": 2,

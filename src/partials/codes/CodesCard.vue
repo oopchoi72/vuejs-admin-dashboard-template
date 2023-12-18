@@ -183,10 +183,9 @@ function generatePageNumbers(currentPage, startPage, endPage) {
               <td className="px-6 py-4">
                 <a
                   className="cursor-pointer font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  @click="
+                  @click.prevent="
                     (event) => {
-                      event.preventDefault();
-                      onDetailView(item.id);
+                      props.onDetailView(item.id);
                     }
                   "
                 >
@@ -198,24 +197,14 @@ function generatePageNumbers(currentPage, startPage, endPage) {
               <td className="px-6 py-4">
                 <a
                   className="cursor-pointer font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  @click="
+                  @click.prevent="
                     (event) => {
-                      event.preventDefault();
-                      onDeleteView(item.id);
+                      console.log('delete:', item.id);
+                      props.onDeleteView(item.id);
                     }
                   "
                 >
-                  <svg
-                    className="w-6 h-6 text-gray-800 dark:text-white"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 18 20"
-                  >
-                    <path
-                      d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z"
-                    />
-                  </svg>
+                  삭제
                 </a>
               </td>
             </tr>

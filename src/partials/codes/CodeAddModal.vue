@@ -1,22 +1,27 @@
 <script setup>
-import { defineProps } from "vue";
-import { useApi } from "../../api";
+import { ref, defineProps } from "vue";
+import { useApi } from "../../apis";
 
-const props = defineProps(["onClose"]);
+const props = defineProps(["onClose", "isModalOpen"]);
 
 const parent_code = ref("");
 const code = ref("");
 const description = ref("");
 const order_no = ref("");
 
-const onSubmit = async (params) => {
+const onSubmit = async () => {
+  const params = {
+    parent_code: parent_code.value,
+    code: code.value,
+    description: description.value,
+    order_no: order_no.value,
+  };
   await useApi().api.codes.post(params);
   props.onClose();
 };
 </script>
 <template>
   <div
-    v-if="isModalOpen"
     class="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center"
   >
     <div class="bg-white p-8 rounded shadow-md w-96">
