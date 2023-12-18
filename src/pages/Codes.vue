@@ -208,6 +208,7 @@ fetchCodes();
           :onClose="closeDeleteModal"
         ></CodeDeleteModal>
       </main>
+      <!-- <Banner /> -->
     </div>
   </div>
 </template>

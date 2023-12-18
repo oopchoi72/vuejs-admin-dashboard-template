@@ -111,6 +111,7 @@ function generatePageNumbers(currentPage, startPage, endPage) {
     //     </a>
     //   </li>
     // );
+    numbers.push("1");
   }
   pageNumbers.value = numbers;
 }
@@ -258,9 +259,27 @@ function generatePageNumbers(currentPage, startPage, endPage) {
               </a>
             </li>
             <span v-if="startPage > 1" className="text-slate-600">...</span>
-            {{
+            <button
+              v-for="pageNumber in pageGroup"
+              :key="pageNumber"
+              @click="changePage(pageNumber)"
+              :class="{ active: pageNumber === currentPage }"
+            >
+              {{ pageNumber }}
+            </button>
+
+            <li key="{i}">
+              <a
+                href="#"
+                class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 ${bgColor} border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                @click.prevent="(event) => onChangePage(i)"
+              >
+                {i}
+              </a>
+            </li>
+            <!-- {{
               pageNumbers
-            }}
+            }} -->
             <span v-if="endPage < totalPage" className="text-slate-600"
               >...</span
             >
